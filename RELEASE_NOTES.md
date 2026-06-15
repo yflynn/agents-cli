@@ -3,21 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 ## [0.5.0] - 2026-06-15
-- chore(deps): bump @grpc/grpc-js
-- Update publish script to mirror and publish source
-- Smart fixture to find tests broken by pyfakefs / patching conflicts
-- fix: don't tear down a reused local server on a plain run
-- fix: upgrade builds the prior-version template via uvx
-- docs: fix pre-existing inaccuracies in skills and generated READMEs
-- Make publish script a bit more robust
-- fix: only announce the project root when chdir actually moves
-- feat: print a copy-pasteable resume command in the run session footer
-- feat: surface machine-shape params as deploy flags (Agent Runtime + Cloud Run)
-- feat(deploy): add --service-name override
-- Refactor for more consistent project resolution
-- fix: drain npx stderr concurrently to avoid pipe-buffer deadlock
-- docs: codify recurring review feedback in agent guidance
-- Clean up remaining adk_live stuff
+- `deploy` now surfaces machine-shape parameters as flags for Agent Runtime and Cloud Run.
+- `deploy` adds a `--service-name` override.
+- `run` prints a copy-pasteable resume command in the session footer.
+- `run` no longer tears down a reused local server on a plain run.
+- `scaffold upgrade` now builds the prior-version template via `uvx`.
+- Skills setup/update no longer hangs on large `npx` output (a pipe-buffer deadlock).
+- The project-root notice now only prints when the command actually changes directory.
+- Fixed pre-existing inaccuracies in the bundled skills and generated project READMEs.
+- Source code is now published to the public GitHub repo: https://github.com/google/agents-cli
 
 ## [0.4.0] - 2026-06-10
 - Scaffolded Python templates now use **ADK 2.0 GA**. New `adk`, `adk_a2a`, and `agentic_rag` projects pin `google-adk[gcp]>=2.0.0,<3.0.0`; the `[gcp]` extra restores the OpenTelemetry GCP exporters and bundles the BigQuery client, so the separate `[bigquery-analytics]` extra is no longer needed. Cloud SQL sessions on Cloud Run and GKE keep working under 2.0. The bundled ADK coding skill and its reference docs were refreshed for 2.0.
