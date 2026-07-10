@@ -15,7 +15,7 @@ description: >
 metadata:
   author: Google
   license: Apache-2.0
-  version: 1.0.0
+  version: 1.1.0
   requires:
     bins:
       - agents-cli
@@ -197,6 +197,6 @@ Docs: https://docs.cloud.google.com/agent-registry/manage-agents
 
 ## Related Skills
 
-- `/google-agents-cli-deploy` — Deployment targets, CI/CD pipelines, and production workflows
+- `/google-agents-cli-deploy` — Deployment targets, CI/CD pipelines, and production workflows (also covers Agent Gateway governed ingress/egress and Semantic Governance awareness)
 - `/google-agents-cli-workflow` — Development workflow, coding guidelines, and operational rules
 - `/google-agents-cli-scaffold` — Project creation and enhancement with `agents-cli scaffold create` / `scaffold enhance`

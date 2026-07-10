@@ -44,7 +44,7 @@ Custom metrics are declared in `eval_config.yaml` (or `.json`) under `custom_met
 
 Code-based metrics default to **local in-process execution** (no GCP project or region required); opt into the Vertex AI sandbox with `execution: "remote"`.
 
-> **Scaffolded default metric.** The scaffolded `eval_config.yaml` ships `custom_response_quality` as a local LLM-judge in `tests/eval/metrics.py` (referenced via `custom_function_file`, run in-process via `google-genai`). It grades on either backend — `genai.Client()` uses `GEMINI_API_KEY` (AI Studio) or ADC (Vertex) — and reads each case's `reference` (ground truth) when present. To grade with the managed Vertex eval service instead, replace it with a built-in metric or an `LLMMetric` (`prompt_template`).
+> **Scaffolded default metric.** The scaffolded `eval_config.yaml` ships `custom_response_quality` as a local LLM-judge in `tests/eval/response_quality.py` (referenced via `custom_function_file`, run in-process via `google-genai`). It grades on either backend — `genai.Client()` uses `GEMINI_API_KEY` (AI Studio) or ADC (Vertex) — and reads each case's `reference` (ground truth) when present. To grade with the managed Vertex eval service instead, replace it with a built-in metric or an `LLMMetric` (`prompt_template`).
 
 ### Example
 

@@ -46,4 +46,9 @@ EXPOSE 8080
 # A2A endpoint: /a2a/invoke (JSON-RPC)
 # Agent card: /.well-known/agent-card.json
 # Web UI: /ui/ (requires IAP for authenticated access)
+{%- if cookiecutter.deployment_target == 'gke' %}
+# GKE does not inject a PORT env var, so bind the ADK launcher to 8080 explicitly.
 ENTRYPOINT ["/agent", "web", "--port", "8080", "api", "a2a", "webui"]
+{%- else %}
+ENTRYPOINT ["/agent", "web", "api", "a2a", "webui"]
+{%- endif %}

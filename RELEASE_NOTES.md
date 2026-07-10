@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-07-10
+
+- **Guided brainstorming for new agents.** The workflow skill's Phase 0 is now an interactive brainstorming dialogue that helps you shape an agent's spec before any code is written, and surfaces its assumptions for review when it can't ask.
+- `eval generate` and `eval grade` no longer clutter output with benign third-party warnings and progress bars that never affected results. This output is still shown on failure and can be re-enabled for debugging.
+- Generated projects now name the default scaffolded eval metric module `tests/eval/response_quality.py` (was `metrics.py`) to match the metric it implements.
+- Broad Windows compatibility fixes across the CLI.
+- Fixed a command-name typo in user-facing hints so they point to the correct `agents-cli` command.
+- Refreshed the bundled skills, including pointing the RAG samples at `core/python/` in `google/adk-samples`.
+
 ## [1.0.0] - 2026-06-30
 
 **Agents CLI is now 1.0 — Generally Available.** This is our first GA release: a stable, production-ready CLI for scaffolding, evaluating, and deploying ADK agents on Google Cloud.

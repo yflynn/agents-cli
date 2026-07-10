@@ -12,7 +12,7 @@ description: >
 metadata:
   author: Google
   license: Apache-2.0
-  version: 1.0.0
+  version: 1.1.0
   requires:
     bins:
       - agents-cli
@@ -26,8 +26,8 @@ metadata:
 > **Before writing agent code, make sure a scaffolded project exists (see Phase 2).** Skipping scaffolding loses eval boilerplate, CI/CD config, and project conventions.
 
 
-> Requires: google-agents-cli ~= 1.0.0
-> If version is behind, run: uv tool install "google-agents-cli~=1.0.0"
+> Requires: google-agents-cli ~= 1.1.0
+> If version is behind, run: uv tool install "google-agents-cli~=1.1.0"
 
 > Check version: agents-cli info
 > [Install uv](https://docs.astral.sh/uv/getting-started/installation/index.md) first if needed.
@@ -68,13 +68,15 @@ Users name products inconsistently (Vertex AI → Agent Platform, Agent Engine �
 
 ## Phase 0: Understand
 
-Before writing or scaffolding anything, understand what you're building.
+Before writing or scaffolding anything, understand what you're building — through a **design dialogue**, not a checklist. Load `references/brainstorming.md` and follow it: ask **one question at a time**, propose 2–3 architecture approaches for non-trivial agents, and validate the design before any scaffolding.
 
 If `.agents-cli-spec.md` exists in the current directory, read it — it is your primary source of truth. Otherwise:
 
-Do NOT proceed to planning, scaffolding, or coding. Ask the user the questions below and wait for their answers. You MUST have the user's answers before moving on. Do not assume, research, or fill in the blanks yourself. The user's intent drives everything — skipping this step leads to wasted work.
+Do NOT proceed to planning, scaffolding, or coding until the user approves the spec. Do not assume, research, or fill in the blanks yourself — the user's intent drives everything.
 
-**Always ask:**
+**Scale the ceremony to complexity:** a trivial agent (single tool, fixed persona) needs only a couple of questions, a 2–3 sentence spec, and one approval; a complex agent (multi-agent, RAG, external APIs/auth, safety-critical) gets the full treatment in `references/brainstorming.md`.
+
+**Topics to cover** (one question at a time, adapting to the user — see the playbook):
 
 1. **What problem will the agent solve?** — Core purpose and capabilities
 2. **External APIs or data sources needed?** — Tools, integrations, auth requirements
@@ -90,7 +92,7 @@ Do NOT proceed to planning, scaffolding, or coding. Ask the user the questions b
 - If **Cloud Run** or **GKE** chosen → **Session storage?** In-memory (default), Cloud SQL (persistent), or Agent Platform Sessions (managed).
 - If **deployment with CI/CD** chosen → **Git repository?** Does one already exist, or should one be created? If creating, public or private?
 
-Once you have the user's answers, write the spec to `.agents-cli-spec.md` using the template in `references/spec-template.md`, then get the user's approval. See `/google-agents-cli-scaffold` for how these choices map to CLI flags.
+Once the design is agreed, write the spec to `.agents-cli-spec.md` using the template in `references/spec-template.md`, self-review it, then get the user's approval. See `/google-agents-cli-scaffold` for how these choices map to CLI flags.
 
 Once you have a clear understanding, proceed to **Phase 1**.
 
@@ -291,6 +293,7 @@ When you need specific infrastructure files (Terraform, CI/CD, Dockerfile) but d
 | `references/internals.md` | Underlying tools and commands that `agents-cli` wraps (adk, pytest, ruff, uvicorn) |
 | `references/samples.md` | Keyword-indexed catalog of ADK reference samples to study before scaffolding |
 | `references/spec-template.md` | `.agents-cli-spec.md` template and optional sections |
+| `references/brainstorming.md` | Phase 0 design-dialogue playbook (one-at-a-time Q&A, approaches, gates) |
 | `references/terminology.md` | Product-name → CLI-value mapping |
 | `references/commands.md` | Per-phase `agents-cli` command index |
 

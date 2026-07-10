@@ -9,13 +9,13 @@ is no `adk@<sample>`.
 git clone --filter=tree:0 --sparse https://github.com/google/adk-samples /tmp/adk-samples
 cd /tmp/adk-samples
 git sparse-checkout add python/agents/<sample>   # most samples
-git sparse-checkout add core/<sample>            # RAG samples (see below)
+git sparse-checkout add core/python/<sample>     # RAG samples (see below)
 ```
 
 Pull in another sample later with one more `git sparse-checkout add <path>`. Start from the key
 files listed under each sample below.
 
-## RAG samples (`core/`)
+## RAG samples (`core/python/`)
 
 Both ground an agent on your own documents. Pick **`rag-agent-search`** for managed search over
 unstructured files (PDF/HTML/TXT), or **`rag-vector-search`** when you need custom

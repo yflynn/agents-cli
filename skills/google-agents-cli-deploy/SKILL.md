@@ -4,7 +4,7 @@ description: >
   This skill should be used when the user wants to "deploy an agent",
   "deploy my ADK agent", "set up CI/CD", "configure secrets",
   "troubleshoot a deployment", or needs guidance on Agent Runtime,
-  Cloud Run, or GKE deployment targets.
+  Cloud Run, or GKE deployment targets, or awareness of Agent Gateway.
   Covers deployment workflows, service accounts, rollback, and production infrastructure.
   Part of the Google ADK (Agent Development Kit) skills suite.
   Do NOT use for API code patterns (use google-agents-cli-adk-code), evaluation
@@ -12,7 +12,7 @@ description: >
 metadata:
   author: Google
   license: Apache-2.0
-  version: 1.0.0
+  version: 1.1.0
   requires:
     bins:
       - agents-cli
@@ -47,7 +47,6 @@ Choose the right deployment target based on your requirements:
 
 | Criteria | Agent Runtime | Cloud Run | GKE |
 |----------|-------------|-----------|-----|
-| **Languages** | Python | Python | Python (+ others via custom containers) |
 | **Scaling** | Managed auto-scaling (configurable min/max, concurrency) | Fully configurable (min/max instances, concurrency, CPU allocation) | Full Kubernetes scaling (HPA, VPA, node auto-provisioning) |
 | **Networking** | VPC-SC and PSC-I supported (private VPC connectivity via network attachments) | Full VPC support, direct VPC egress, IAP, ingress rules | Full Kubernetes networking |
 | **Session state** | Native `VertexAiSessionService` (persistent, managed) | In-memory (dev), Cloud SQL, or Agent Platform Sessions backend | In-memory (dev), Cloud SQL, or Agent Platform Sessions backend |
@@ -57,6 +56,8 @@ Choose the right deployment target based on your requirements:
 | **Best for** | Managed infrastructure, minimal ops | Custom infra, full networking control | Full Kubernetes control |
 
 **Ask the user** which deployment target fits their needs. Each is a valid production choice with different trade-offs.
+
+All three targets are container-based, so any language works.
 
 > **Product name mapping:** "Agent Engine" / "Vertex AI Agent Engine" is now **Agent Runtime**. Use `--deployment-target agent_runtime`.
 
@@ -356,6 +357,31 @@ For custom infrastructure patterns, consult `references/terraform-patterns.md` f
 ## Platform Registration
 
 For registering deployed agents with Gemini Enterprise, see `/google-agents-cli-publish`.
+
+---
+
+## Agent Gateway & Semantic Governance (Gemini Enterprise Agent Platform)
+
+> **Note:** There are no `agents-cli` commands for these yet. Deploy your agent as usual
+> with `agents-cli deploy`, then configure Agent Gateway and Semantic Governance separately
+> (via Terraform or the Cloud Console).
+
+**Agent Gateway** is the networking + security entry/exit point for all agent interactions
+(user↔agent, agent↔tool, agent↔agent) — it centralizes access control and governed
+connectivity (ingress/egress). It is not a deployment target. Deploy your agent with
+`agents-cli deploy`, then attach it to a gateway one of two ways:
+
+- **Add the existing agent to a gateway** via the Console / docs flow — see [Route Agent Runtime traffic through Agent Gateway](https://docs.cloud.google.com/gemini-enterprise-agent-platform/scale/runtime/agent-gateway-runtime-deploy) ("For existing agents").
+- **Manage the gateway in Terraform** with [`google_network_services_agent_gateway`](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/network_services_agent_gateway) (currently in the `google-beta` provider) — recommended for production, so `agents-cli deploy` owns the agent version and CI/CD handles updates.
+
+Background: [Agent Gateway overview](https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/gateways/agent-gateway-overview).
+
+**Semantic Governance Policies (SGP)** add a natural-language security/compliance layer
+that keeps an agent's tool invocations aligned with user intent and organizational
+constraints.
+
+- Overview: https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/policies/semantic-governance-overview
+- Configure: https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/policies/configure-semantic-governance
 
 ---
 
